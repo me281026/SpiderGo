@@ -10,10 +10,16 @@ func main() {
 
 	//go get -u github.com/go-sql-driver/mysql
 	//第一个参数表示是cmd命令,第二个是目录,
-	command := exec.Command("cmd", "D://GoProject//src", "get", "-u github.com/go-sql-driver/mysql")
+	//command := exec.Command("cmd", "D://GoProject//src", "get", "-u github.com/go-sql-driver/mysql")
 
-	if run := command.Run(); run != nil {
-		fmt.Println(run)
+	//if run := command.Run(); run != nil {
+	//fmt.Println(run)
+	//}
+
+	cmd := exec.Command("cmd", "D://GoProject//SpiderGo//"+
+		"me.spider.go//test//datasource//mysql", "go", "install", "user")
+	if err := cmd.Run(); err != nil {
+		fmt.Println(err)
 	}
 
 }
