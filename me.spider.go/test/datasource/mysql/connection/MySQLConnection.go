@@ -10,7 +10,13 @@ import (
 var DBConnection *sql.DB
 
 //连接信息
-const ()
+const (
+	UserName = "user"
+	PassWord = "123456"
+	Ip       = "192.168.1.1"
+	Port     = "3306"
+	DataBase = "test01"
+)
 
 //建立初始化连接池
 func InitDB() {
