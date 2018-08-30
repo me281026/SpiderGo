@@ -10,13 +10,7 @@ import (
 var DBConnection *sql.DB
 
 //连接信息
-const (
-	UserName = "mldeploy"
-	PassWord = "123456"
-	Ip       = "192.168.60.99"
-	Port     = "3306"
-	DataBase = "crf_bi"
-)
+const ()
 
 //建立初始化连接池
 func InitDB() {
