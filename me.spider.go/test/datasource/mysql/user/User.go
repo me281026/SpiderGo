@@ -13,6 +13,6 @@ type User struct {
 	PHONENUM   string
 }
 
-func (user *User) toString() {
+func (user *User) ToString() {
 	fmt.Println(user.USERID + "," + user.USERNAME + "," + user.SEX)
 }
