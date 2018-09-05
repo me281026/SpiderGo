@@ -70,3 +70,44 @@ func findMaxConsecutiveOnes02(nums []int) int {
 	}
 	return b
 }
+
+//788. 旋转数字
+func rotatedDigits(N int) int {
+	count := 0
+	for i := 1; i <= N; i++ {
+		validFound := false
+		for i > 0 {
+			if i%10 == 2 {
+				validFound = true
+			}
+			if i%10 == 5 {
+				validFound = true
+			}
+			if i%10 == 6 {
+				validFound = true
+			}
+			if i%10 == 9 {
+				validFound = true
+			}
+			if i%10 == 3 {
+				validFound = false
+				break
+			}
+			if i%10 == 4 {
+				validFound = false
+				break
+			}
+			if i%10 == 7 {
+				validFound = false
+				break
+			}
+			i = i / 10
+		}
+
+		if validFound {
+			count++
+		}
+	}
+	return count
+
+}
