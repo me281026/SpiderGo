@@ -7,7 +7,7 @@ import (
 )
 
 func main() {
-	resp, err := http.Get("https://weibo.com")
+	resp, err := http.Get("https://www.zhihu.com")
 	if err != nil {
 		panic(err)
 	}
