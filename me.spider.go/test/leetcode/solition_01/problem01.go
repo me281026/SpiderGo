@@ -1,5 +1,10 @@
 package main
 
+import (
+	"bytes"
+	"strings"
+)
+
 func main() {
 
 }
@@ -110,4 +115,46 @@ func rotatedDigits(N int) int {
 	}
 	return count
 
+}
+
+//122. 买卖股票的最佳时机 II
+func maxProfit(prices []int) int {
+	max := 0
+	for i := 1; i < len(prices); i++ {
+		if prices[i] > prices[i-1] {
+			max += prices[i] - prices[i-1]
+		}
+	}
+	return max
+}
+
+//824. 山羊拉丁文
+func toGoatLatin(S string) string {
+	words := strings.Fields(S)
+	vowels := map[byte]bool{
+		'a': true, 'A': true,
+		'e': true, 'E': true,
+		'i': true, 'I': true,
+		'o': true, 'O': true,
+		'u': true, 'U': true,
+	}
+	var buffer bytes.Buffer
+
+	for i, word := range words {
+		if vowels[word[0]] {
+			buffer.WriteString(word)
+		} else {
+			buffer.WriteString(word[1:])
+			buffer.WriteString(string(word[0]))
+		}
+		buffer.WriteString("ma")
+		for j := 1; j <= i+1; j++ {
+			buffer.WriteString("a")
+		}
+		if i != len(words)-1 {
+			buffer.WriteString(" ")
+		}
+	}
+
+	return buffer.String()
 }
