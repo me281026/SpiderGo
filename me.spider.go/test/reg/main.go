@@ -16,11 +16,12 @@ func main() {
 	defer resp.Body.Close()
 	all, err := ioutil.ReadAll(resp.Body)
 
-	match := regexp.MustCompile(`<a href="//www.bilibili.com/.*</span></a>`)
-	data := match.FindAll(all, -1)
+	match := regexp.MustCompile(`<a href="//(www.bilibili.com/[^>]*)><span>([^<]*)</span></a>`)
+	data := match.FindAllSubmatch(all, -1)
 	for _, v := range data {
-		fmt.Printf("%s\n", v)
+		fmt.Printf("area: %s , url: %s\n", v[2], v[1])
 	}
+	fmt.Printf("total url num : %d\n", len(data))
 
 	if err != nil {
 		fmt.Println("err:", err.Error())
