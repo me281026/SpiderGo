@@ -18,7 +18,7 @@ func main() {
 	match := regexp.MustCompile(`<a href="//(www.bilibili.com/[^>]*)><span>([^<]*)</span></a>`)
 	data := match.FindAllSubmatch(all, -1)
 
-	file, e := os.Open("D://GoProject//SpiderGo//me.spider.go//test//reg//HTML")
+	file, e := os.Create("INFO")
 	DealErr(e)
 	defer file.Close()
 
@@ -28,7 +28,7 @@ func main() {
 			DealErr(err2)
 			fmt.Printf("写入 %d 个字节n", n)
 		}
-
+		fmt.Println()
 		fmt.Printf("area: %s , url: %s\n", v[2], v[1])
 
 	}

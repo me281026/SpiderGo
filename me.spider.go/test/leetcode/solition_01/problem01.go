@@ -158,3 +158,26 @@ func toGoatLatin(S string) string {
 
 	return buffer.String()
 }
+
+//242. 有效的字母异位词
+//给定两个字符串 s 和 t ，编写一个函数来判断 t 是否是 s 的一个字母异位词。
+//输入: s = "anagram", t = "nagaram"
+//输出: true
+func isAnagram(s string, t string) bool {
+	if len(s) != len(t) {
+		return false
+	}
+	var arr [26]int
+	for _, v := range s {
+		arr[v-'a']++
+	}
+	for _, v := range t {
+		arr[v-'a']--
+	}
+	for _, v := range arr {
+		if v != 0 {
+			return false
+		}
+	}
+	return true
+}
