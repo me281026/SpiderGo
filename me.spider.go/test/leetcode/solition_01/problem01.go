@@ -181,3 +181,25 @@ func isAnagram(s string, t string) bool {
 	}
 	return true
 }
+
+//447. 回旋镖的数量
+func numberOfBoomerangs(points [][]int) int {
+	result := 0
+	for i, v := range points {
+		p := map[int]int{}
+		for m, n := range points {
+			if i == m {
+				continue
+			}
+			k1, k2 := v[0]-n[0], v[1]-n[1]
+			p[k1*k1+k2*k2] += 1
+		}
+		for t := range p {
+			if p[t] > 1 {
+				result += p[t] * (p[t] - 1)
+			}
+		}
+
+	}
+	return result
+}
