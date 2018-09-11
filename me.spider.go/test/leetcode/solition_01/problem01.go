@@ -203,3 +203,15 @@ func numberOfBoomerangs(points [][]int) int {
 	}
 	return result
 }
+
+//268. 缺失数字
+func missingNumber(nums []int) int {
+	len := len(nums)
+	a := len * (len + 1) / 2
+	var b int
+	for _, num := range nums {
+		b += num
+	}
+	return a - b
+
+}
