@@ -30,3 +30,18 @@ func lemonadeChange(bills []int) bool {
 	return true
 
 }
+
+//121. 买卖股票的最佳时机
+func maxProfit02(prices []int) int {
+	a := 0
+	for i := 0; i < len(prices); i++ {
+		c := prices[i] - prices[i-1]
+		if c < 0 {
+			c = 0
+		}
+		if c > a {
+			a = c
+		}
+	}
+	return a
+}
