@@ -1,6 +1,10 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"regexp"
+	"strings"
+)
 
 func main() {
 
@@ -78,4 +82,15 @@ func checkRecord(s string) bool {
 	} else {
 		return false
 	}
+}
+
+//551. 学生出勤纪录
+func checkRecord02(s string) bool {
+	b, _ := regexp.MatchString(`.*LLL.*|.*A.*A.*`, s)
+	return !b
+}
+
+//551. 学生出勤纪录
+func checkRecord03(s string) bool {
+	return !(strings.Count(s, `A`) > 1) || !strings.Contains(s, `LLL`)
 }
