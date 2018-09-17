@@ -94,3 +94,24 @@ func checkRecord02(s string) bool {
 func checkRecord03(s string) bool {
 	return !(strings.Count(s, `A`) > 1) && !strings.Contains(s, `LLL`)
 }
+
+//458. 可怜的小猪
+//假设有 n 只水桶，猪饮水中毒后会在 m 分钟内死亡，你需要多少猪（x）就能在 p 分钟内找出“有毒”水桶？
+// n只水桶里有且仅有一只有毒的桶
+func poorPigs(buckets int, minutesToDie int, minutesToTest int) int {
+	buckets--
+	num := minutesToTest/minutesToDie + 1
+	count := 0
+	for buckets > 0 {
+		buckets /= num
+		count++
+	}
+	return count
+}
+
+//506. 相对名次
+//给出 N 名运动员的成绩，找出他们的相对名次并授予前三名对应的奖牌。
+// 前三名运动员将会被分别授予 “金牌”，“银牌” 和“ 铜牌”（"Gold Medal", "Silver Medal", "Bronze Medal"）。
+func findRelativeRanks(nums []int) []string {
+	return []string{}
+}
