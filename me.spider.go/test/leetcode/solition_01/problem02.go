@@ -1,6 +1,11 @@
 package main
 
-func mian() {
+import "fmt"
+
+func main() {
+
+	s := "PPALLL"
+	fmt.Println(checkRecord(s))
 
 }
 
@@ -44,4 +49,33 @@ func maxProfit02(prices []int) int {
 		}
 	}
 	return a
+}
+
+//551. 学生出勤纪录
+func checkRecord(s string) bool {
+	arr := []rune(s)
+	if len(arr) <= 3 || s != "AA" || s != "LLL" {
+		return true
+	}
+	a, b := 0, 0
+	for i, v := range arr {
+		if v == 'A' {
+			a++
+		}
+		if arr[len(arr)-1] == 'L' && i == len(arr)-1 {
+			if arr[len(arr)-2] == 'L' && arr[len(arr)-3] == 'L' {
+				b++
+				break
+			}
+		} else {
+			if arr[i] == 'L' && arr[i+1] == 'L' {
+				b++
+			}
+		}
+	}
+	if a <= 1 && b <= 2 {
+		return true
+	} else {
+		return false
+	}
 }
