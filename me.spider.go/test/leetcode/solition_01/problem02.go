@@ -92,5 +92,5 @@ func checkRecord02(s string) bool {
 
 //551. 学生出勤纪录
 func checkRecord03(s string) bool {
-	return !(strings.Count(s, `A`) > 1) || !strings.Contains(s, `LLL`)
+	return !(strings.Count(s, `A`) > 1) && !strings.Contains(s, `LLL`)
 }
