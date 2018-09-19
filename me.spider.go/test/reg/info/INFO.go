@@ -23,7 +23,7 @@ func (i *INFO) StringData() string {
 	str.WriteString(strconv.Itoa(i.Id))
 	str.WriteString(" , Block : ")
 	str.WriteString(i.Block)
-	str.WriteString(" , url : ")
+	str.WriteString(" , Url : ")
 	str.WriteString(i.Url)
 	return str.String()
 }
