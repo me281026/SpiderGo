@@ -2,6 +2,7 @@ package main
 
 import (
 	"./info"
+	"bufio"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -19,9 +20,9 @@ func main() {
 	match := regexp.MustCompile(`<a href="//(www.bilibili.com/[^\"]*)"><span>([^<]*)</span></a>`)
 	data := match.FindAllSubmatch(all, -1)
 
-	file, e := os.Create("INFO")
-	DealErr(e)
-	defer file.Close()
+	//file, e := os.Create("INFO")
+	//DealErr(e)
+	//defer file.Close()
 
 	//创建INFO数组
 	var arr []info.INFO
@@ -42,15 +43,24 @@ func main() {
 		arr = append(arr, info)
 
 	}
-	file.Sync()
+	//file.Sync()
 	fmt.Printf("total url num : %d\n", len(data))
 
 	DealErr(err)
+	//创建文件,写入数据
+	file, i := os.Create("D:\\GoProject\\SpiderGo\\me.spider.go\\test\\reg\\Info.txt")
+	defer file.Close()
+	DealErr(i)
+
+	//创建bufio
+	writer := bufio.NewWriter(file)
 
 	//遍历数组
 	for _, v := range arr {
 		v.ToString()
+		writer.WriteString(v.StringData() + " \n")
 	}
+	writer.Flush()
 
 }
 
