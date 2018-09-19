@@ -1,6 +1,7 @@
 package main
 
 import (
+	"./info"
 	"fmt"
 	"io/ioutil"
 	"net/http"
@@ -15,27 +16,41 @@ func main() {
 	defer resp.Body.Close()
 	all, err := ioutil.ReadAll(resp.Body)
 
-	match := regexp.MustCompile(`<a href="//(www.bilibili.com/[^>]*)><span>([^<]*)</span></a>`)
+	match := regexp.MustCompile(`<a href="//(www.bilibili.com/[^\"]*)"><span>([^<]*)</span></a>`)
 	data := match.FindAllSubmatch(all, -1)
 
 	file, e := os.Create("INFO")
 	DealErr(e)
 	defer file.Close()
 
-	for _, v := range data {
-		for _, m := range v {
-			n, err2 := file.Write(m)
-			DealErr(err2)
-			fmt.Printf("写入 %d 个字节n", n)
-		}
+	//创建INFO数组
+	var arr []info.INFO
+
+	for i, v := range data {
+		//for _, m := range v {
+		//	n, err2 := file.Write(m)
+		//	DealErr(err2)
+		//	fmt.Printf("写入 %d 个字节n", n)
+		//}
 		fmt.Println()
-		fmt.Printf("area: %s , url: %s\n", v[2], v[1])
+		//创建INFO
+		info := info.INFO{
+			i + 1,
+			string(v[2]),
+			string(v[1]),
+		}
+		arr = append(arr, info)
 
 	}
 	file.Sync()
 	fmt.Printf("total url num : %d\n", len(data))
 
 	DealErr(err)
+
+	//遍历数组
+	for _, v := range arr {
+		v.ToString()
+	}
 
 }
 
