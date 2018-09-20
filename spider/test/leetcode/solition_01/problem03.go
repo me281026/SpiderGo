@@ -20,3 +20,16 @@ func backspaceCompare(S string, T string) bool {
 	//if strings.Contains(S,"#")
 	return false
 }
+
+//217. 存在重复元素
+func containsDuplicate(nums []int) bool {
+	var m = make(map[int]int)
+	for i, v := range nums {
+		_, flag := m[v]
+		if flag {
+			return true
+		}
+		m[v] = i
+	}
+	return false
+}
