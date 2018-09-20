@@ -15,6 +15,7 @@ func MongoConnection() *mgo.Collection {
 	host := "127.0.0.1"
 	port := "27017"
 	dbname := "test"
+	c := "user"
 	//session
 	session, err := mgo.Dial(host + ":" + port)
 	if err != nil {
@@ -24,6 +25,6 @@ func MongoConnection() *mgo.Collection {
 	defer session.Close()
 	session.SetMode(mgo.Monotonic, true)
 	//获取DB连接
-	collection := session.DB(dbname).C("User")
+	collection := session.DB(dbname).C(c)
 	return collection
 }
