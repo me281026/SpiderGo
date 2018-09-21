@@ -50,7 +50,7 @@ func main() {
 
 	DealErr(err)
 	//创建文件,写入数据
-	file, i := os.Create("D:\\GoProject\\SpiderGo\\me.spider.go\\test\\reg\\" + "Info_" + strconv.Itoa(int(time.Now().Unix())) + ".txt")
+	file, i := os.Create("D:\\GoProject\\SpiderGo\\spider\\test\\reg\\" + "Info_" + strconv.Itoa(int(time.Now().Unix())) + ".txt")
 	defer file.Close()
 	DealErr(i)
 
