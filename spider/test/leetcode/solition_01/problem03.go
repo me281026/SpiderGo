@@ -52,3 +52,19 @@ func canConstruct(ransomNote string, magazine string) bool {
 	return true
 
 }
+
+//70. 爬楼梯
+func climbStairs(n int) int {
+	if n == 1 {
+		return 1
+	}
+	a := 1
+	b := 2
+	for i := 3; i <= n; i++ {
+		c := a + b
+		a = b
+		b = c
+	}
+	return b
+
+}
