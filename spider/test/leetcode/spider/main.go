@@ -34,7 +34,7 @@ func main() {
 		plems = append(plems, problem)
 	}
 	//创建文件,写入数据D:\GoProject\SpiderGo\spider\test\leetcode\spider
-	file, i := os.Create("D:\\GoProject\\SpiderGo\\spider\\test\\leetcode\\spider" + "Plem_" + strconv.Itoa(int(time.Now().Unix())) + ".txt")
+	file, i := os.Create("D:\\GoProject\\SpiderGo\\spider\\test\\leetcode\\spider\\" + "Plem_" + strconv.Itoa(int(time.Now().Unix())) + ".txt")
 	defer file.Close()
 	Dealerr(i)
 
