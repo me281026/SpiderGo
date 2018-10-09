@@ -242,3 +242,23 @@ func toHex(num int) string {
 func fairCandySwap(A []int, B []int) []int {
 	return nil
 }
+
+//896. 单调数列
+func isMonotonic(A []int) bool {
+	flag := 0
+	for i := 0; i < len(A)-1; i++ {
+		num := 0
+		if A[i] > A[i+1] {
+			num = -1
+		} else if A[i] < A[i+1] {
+			num = 1
+		}
+		if num != 0 {
+			if flag != num && flag != 0 {
+				return false
+			}
+			flag = num
+		}
+	}
+	return true
+}
