@@ -262,3 +262,70 @@ func isMonotonic(A []int) bool {
 	}
 	return true
 }
+
+//448. 找到所有数组中消失的数字
+//给定一个范围在  1 ≤ a[i] ≤ n ( n = 数组大小 ) 的 整型数组，数组中的元素一些出现了两次，另一些只出现一次。
+//
+//找到所有在 [1, n] 范围之间没有出现在数组中的数字。
+//
+//您能在不使用额外空间且时间复杂度为O(n)的情况下完成这个任务吗? 你可以假定返回的数组不算在额外空间内。
+//
+//示例:
+//
+//输入:
+//[4,3,2,7,8,2,3,1]
+//
+//输出:
+//[5,6]
+func findDisappearedNumbers(nums []int) []int {
+	var arr []int
+	for i := 0; i < len(nums); i++ {
+		v := int(math.Abs(float64(nums[i])) - 1)
+		if nums[v] < 0 {
+			continue
+		}
+		nums[v] = nums[v] * -1
+	}
+	for i := 0; i < len(nums); i++ {
+		if nums[i] > 0 {
+			arr = append(arr, i+1)
+		}
+
+	}
+	return arr
+}
+
+//35. 搜索插入位置
+func searchInsert(nums []int, target int) int {
+	start := 0
+	end := len(nums) - 1
+	for start <= end {
+		mid := (start + end) / 2
+		if nums[mid] == target {
+			return mid
+		} else if nums[mid] > target {
+			end = mid - 1
+		} else {
+			start = mid + 1
+		}
+	}
+
+	return start
+
+}
+
+func searchInsert2(nums []int, target int) int {
+	start := 0
+	end := len(nums)
+	for start < end {
+		mid := (start + end) / 2
+		if nums[mid] < target {
+			end = mid - 1
+		} else {
+			start = mid
+		}
+	}
+
+	return start
+
+}
