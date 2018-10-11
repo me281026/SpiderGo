@@ -329,3 +329,17 @@ func searchInsert2(nums []int, target int) int {
 	return start
 
 }
+
+//26. 删除排序数组中的重复项
+func removeDuplicates(nums []int) int {
+	var one int = 0
+	length := len(nums)
+	for two := 1; two < length; two++ {
+		if nums[one] != nums[two] {
+			one++
+			nums[one] = nums[two]
+		}
+	}
+	return one + 1
+
+}
