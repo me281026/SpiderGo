@@ -18,6 +18,9 @@ func main() {
 
 	defer resp.Body.Close()
 	//判断请求是否成功
+	if resp.StatusCode != 200 {
+		fmt.Println("success!!!!!!")
+	}
 
 	all, err := ioutil.ReadAll(resp.Body)
 
