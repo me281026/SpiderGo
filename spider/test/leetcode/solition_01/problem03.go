@@ -1,6 +1,9 @@
 package main
 
-import "math"
+import (
+	"math"
+	"sort"
+)
 
 func main() {
 
@@ -342,4 +345,11 @@ func removeDuplicates(nums []int) int {
 	}
 	return one + 1
 
+}
+
+// 628. 三个数的最大乘积
+func maximumProduct(nums []int) int {
+	sort.Ints(nums)
+	len := len(nums)
+	return int(math.Max(float64(nums[0]*nums[1]*nums[len-1]), float64(nums[len-1]*nums[len-2]*nums[len-3])))
 }
