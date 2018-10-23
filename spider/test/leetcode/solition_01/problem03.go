@@ -353,3 +353,21 @@ func maximumProduct(nums []int) int {
 	len := len(nums)
 	return int(math.Max(float64(nums[0]*nums[1]*nums[len-1]), float64(nums[len-1]*nums[len-2]*nums[len-3])))
 }
+
+//717. 1比特与2比特字符
+func isOneBitCharacter(bits []int) bool {
+	var num int
+	var len = len(bits)
+	for num < len-1 {
+		num += bits[num] + 1
+	}
+	return num == len-1
+}
+
+func isOneBitCharacter02(bits []int) bool {
+	var num = len(bits) - 2
+	for num >= 0 && bits[num] > 0 {
+		num--
+	}
+	return (len(bits)-num)%2 == 0
+}
