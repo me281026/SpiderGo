@@ -3,6 +3,7 @@ package main
 import (
 	"math"
 	"sort"
+	"strings"
 )
 
 func main() {
@@ -388,4 +389,27 @@ func plusOne(digits []int) []int {
 		return arr
 	}
 	return digits
+}
+
+//290. 单词模式
+func wordPattern(pattern string, str string) bool {
+	split := strings.Split(str, ` `)
+	if len(split) != len(pattern) {
+		return false
+	}
+	m := make(map[string]int)
+	for i := 0; i <= len(split); i++ {
+		m[split[i]] = i
+		return false
+	}
+	return true
+}
+
+//836. 矩形重叠
+func isRectangleOverlap(rec1 []int, rec2 []int) bool {
+	return !(rec1[2] <= rec2[0] || rec1[3] <= rec2[1] || rec1[0] >= rec2[2] || rec1[1] >= rec2[3])
+}
+
+func isRectangleOverlap02(rec1 []int, rec2 []int) bool {
+	return (math.Max(float64(rec1[2]), float64(rec2[2])) > math.Max(float64(rec1[0]), float64(rec2[0])) && math.Max(float64(rec1[3]), float64(rec2[3])) > math.Max(float64(rec1[1]), float64(rec2[1])))
 }
