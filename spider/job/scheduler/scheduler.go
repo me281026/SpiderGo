@@ -34,3 +34,24 @@ func (jobInfo *JobInfo) Append(city, kd string, pn int) {
 	mutex.Unlock()
 
 }
+
+//count计数方法
+func (jobInfo *JobInfo) Count() int {
+	return len(jobInfoArr)
+}
+
+//Pop方法
+func (jobInfo *JobInfo) Pop() *JobInfo {
+	mutex.Lock()
+	length := len(jobInfoArr)
+	if length < 1 {
+		return nil
+	}
+	//取值
+	job := jobInfoArr[length-1]
+	jobInfoArr = jobInfoArr[:length-1]
+
+	//解锁
+	mutex.Unlock()
+	return &job
+}

@@ -4,13 +4,16 @@ import (
 	"../pipline"
 	"../result"
 	"../scheduler"
+	"../util/convert"
 	"../util/page"
 	"fmt"
 	"github.com/pkg/errors"
 	"log"
+	"time"
 )
 
 var (
+	delayTime    = time.Tick(time.Millisecond * 500)
 	jobScheduler = scheduler.NewJobScheduler()
 	JobPipline   = pipline.InitJobInfo()
 )
@@ -60,7 +63,8 @@ func Initexe(city, kd string, pn int) ([]InitParam, error) {
 		jobScheduler.Append(city, kd, pn)
 	}
 	//pipline添加
-
+	JobPipline.Append(convert.ToPiplineJob(jobs))
+	return init, nil
 }
 
 //获取Job信息
@@ -87,4 +91,54 @@ func GetJob(city, kd string, pn int) ([]result.DataResult, int, int, error) {
 	}
 	//返回结果
 	return listResult.Content.PositionResult.DataResult, totalPage, listResult.Content.PositionResult.TotalCount, nil
+}
+
+//循环信息抓取
+func ResultJobs() ResultParam {
+	//定义数值和Chan
+	var (
+		rp    ResultParam
+		count = jobScheduler.Count()
+
+		paramChan = make(chan []result.DataResult)
+	)
+	//循环调用执行器执行
+	for i := 0; i < count; i++ {
+		//设置延迟
+		<-delayTime
+		//开启协程
+		go func() {
+			if job := jobScheduler.Pop(); job != nil {
+				results, _, _, err := GetJob(job.City, job.Kd, job.Pn)
+				//判断err,并记录,如果无err,则放入chan
+				if err != nil {
+					rp.Error++
+					rp.Errors = append(rp.Errors, err.Error())
+				} else {
+					paramChan <- results
+				}
+			} else {
+				rp.Empty++
+			}
+
+		}()
+	}
+
+	//处理chan,设置跳出标记
+JUMP:
+	for {
+		select {
+		case param := <-paramChan:
+			rp.Success++
+			JobPipline.Append(convert.ToPiplineJob(param))
+		default:
+			if (rp.Success + rp.Empty + rp.Error) >= count {
+				log.Printf("Break..........")
+				break JUMP
+			}
+
+		}
+	}
+	return rp
+
 }

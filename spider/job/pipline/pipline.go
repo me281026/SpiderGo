@@ -1,6 +1,9 @@
 package pipline
 
-import "sync"
+import (
+	"github.com/go-crawler/lagou_jobs/model"
+	"sync"
+)
 
 var (
 	jobInfos []JobInfo
@@ -66,9 +69,24 @@ func InitJobInfo() *JobInfo {
 }
 
 //apped方法
-func (jobInfo *JobInfo) append(ji []JobInfo) {
+func (jobInfo *JobInfo) Append(ji []JobInfo) {
 	var mutex sync.Mutex
 	mutex.Lock()
 	jobInfos = append(jobInfos, ji...)
 	mutex.Unlock()
+}
+
+//get
+func (jobInfo *JobInfo) Get() []JobInfo {
+	return jobInfos
+}
+
+//push
+func (jobInfo *JobInfo) Push() error {
+	for _, v := range jobInfo.Get() {
+		if err := model.DB.Create(v).Error; err != nil {
+			return err
+		}
+	}
+	return nil
 }

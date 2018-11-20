@@ -3,6 +3,7 @@ package main
 import (
 	"./execute"
 	"./pipline"
+	"log"
 	"sync"
 )
 
@@ -26,10 +27,10 @@ var (
 	}
 
 	//入参
-	InitParam = execute.InitParam{}
+	InitParam = []execute.InitParam{}
 
 	//出参
-	ResultParam = execute.ResultParam{}
+	ResultParam = []execute.ResultParam{}
 
 	//初始化接入数据
 	JobInfo = pipline.InitJobInfo()
@@ -41,18 +42,28 @@ var (
 func main() {
 
 	//依次传入参数
-	for kd := range lang {
-		for city := range citys {
+	for _, kd := range lang {
+		for _, city := range citys {
 			//传入一个执行协程
 			wg.Add(1)
 			go func(kd string, city string) {
 				//进入协程后取出
-				wg.Done()
+				defer wg.Done()
 				//初始化参数并传入
-
-			}()
+				params, err := execute.Initexe(city, kd, 1)
+				if err != nil {
+					log.Fatalln(err)
+				}
+				InitParam = append(InitParam, params...)
+				ResultParam = append(ResultParam, execute.ResultJobs())
+			}(city, kd)
 
 		}
 	}
-
+	//wait
+	wg.Wait()
+	JobInfo.Push()
+	//log记录打印
+	log.Printf("InitParam: %v", InitParam)
+	log.Printf("ResultParam: %v", ResultParam)
 }
